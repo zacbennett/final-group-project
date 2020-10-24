@@ -5,7 +5,7 @@ import com.example.springboot.classes.Item;
 public class Pizza {
  
     private float totalPrice = 0;
- 
+
     private Size size;
     private Topping topping;
     private Crust crust;
@@ -15,7 +15,7 @@ public class Pizza {
         return size;
     }
  
-    public void setSize(Size size) {
+    public void setPizzaSize(Size size) {
         this.size = size;
     }
  
@@ -23,7 +23,7 @@ public class Pizza {
         return topping;
     }
  
-    public void setTopping(Topping topping) {
+    public void setPizzaTopping(Topping topping) {
         this.topping = topping;
     }
  
@@ -31,7 +31,7 @@ public class Pizza {
         return crust;
     }
  
-    public void setCrust(Crust crust) {
+    public void setPizzaCrust(Crust crust) {
         this.crust = crust;
     }
  
@@ -47,73 +47,81 @@ public class Pizza {
         return totalPrice;
     }
  
-    public void addToPrice(float price) {
+    public void addPizzaPrice(float price) {
         this.totalPrice = totalPrice + price;
     }
 }
 
 
+
+public enum Crust {
+    THIN  {
+        public float getCost(){
+            return 3;
+        }
+    },
+    STUFFED{
+        public float getCost(){
+            return 4;
+        }
+    };
+ 
+    public abstract float getCost();
+}
+
+public enum Size {
+    SMALL {
+        public float getCost() {
+            return 15;
+        }
+    },
+    MEDIUM {
+        public float getCost() {
+            return 20;
+        }
+    },
+    LARGE {
+        public float getCost() {
+            return 25;
+        }
+    };
+ 
+    public abstract float getCost();
+}
+
+public enum Topping {
+
+    PINEAPPLE {
+        public float getCost(){
+            return 4;
+        }
+    }, 
+    JALAPENOS{
+        public float getCost(){
+            return 3;
+        }
+    }, 
+    ONIONS{
+        public float getCost(){
+            return 4;
+        }
+    };
+ 
+    public abstract float getCost();
+}
+
 public enum Cheese {
     AMERICAN {
         public float getCost() {
-            return 40;
+            return 5;
         }
-    }, ITALIAN {
+    },
+    CHEDDAR {
         public float getCost() {
-            return 60;
+            return 5;
         }
     };
  
     public abstract float getCost();
  
-}
- 
-public enum Crust {
- 
-      THIN  {
-        public float getCost(){
-            return 70;
-        }
-    } , STUFFED{
-        public float getCost(){
-            return 90;
-        }
-    };
- 
-    public abstract float getCost();
-}
- 
-public enum Size {
-    MEDIUM {
-        public float getCost() {
-            return 100;
-        }
-    }, 
-
-    LARGE {
-        public float getCost() {
-            return 160;
-        }
-    };
- 
-    public abstract float getCost();
-}
- 
-public enum Topping {
- 
-    PEPPERONI {
-        public float getCost(){
-            return 30;
-        }
-    }, CHICKEN{
-        public float getCost(){
-            return 35;
-        }
-    }, MUSHROOM{
-        public float getCost(){
-            return 20;
-        }
-    };
- 
-    public abstract float getCost();
 }

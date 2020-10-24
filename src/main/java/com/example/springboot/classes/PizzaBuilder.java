@@ -6,21 +6,21 @@ public class PizzaBuilder {
  
     Pizza pizza = new Pizza();
  
-    public PizzaBuilder withTopping(Topping topping) {
-        pizza.setTopping(topping);
-        pizza.addToPrice(topping.getCost());
+    public PizzaBuilder pizzaTopping(Topping topping) {
+        pizza.setPizzaTopping(topping);
+        pizza.addPizzaPrice(topping.getCost());
         return this;
     }
  
-    public PizzaBuilder withSize(Size size) {
-        pizza.setSize(size);
-        pizza.addToPrice(size.getCost());
+    public PizzaBuilder pizzaSize(Size size) {
+        pizza.setPizzaSize(size);
+        pizza.addPizzaPrice(size.getCost());
         return this;
     }
  
-    public PizzaBuilder withCrust(Crust crust) {
-        pizza.setCrust(crust);
-        pizza.addToPrice(crust.getCost());
+    public PizzaBuilder pizzaCrust(Crust crust) {
+        pizza.setPizzaCrust(crust);
+        pizza.addPizzaPrice(crust.getCost());
         return this;
     }
  
@@ -38,11 +38,11 @@ public class PizzaBuilder {
 public class PizzaBuilderTest {
  
     @Test
-    public void shouldBuildThinCrustChickenPizza(){
-        Pizza pizza = new PizzaBuilder().withCrust(Crust.THIN).withTopping(Topping.CHICKEN).withSize(Size.LARGE).build();
-        assertEquals(Topping.CHICKEN,pizza.getTopping());
+    public void testStuffedCrustJalapenosPizza(){
+        Pizza pizza = new PizzaBuilder().pizzaCrust(Crust.STUFFED).pizzaTopping(Topping.JALAPENOS).pizzaSize(Size.LARGE).build();
+        assertEquals(Topping.JALAPENOS,pizza.getTopping());
         assertEquals(Size.LARGE,pizza.getSize());
-        assertEquals(Crust.THIN,pizza.getCrust());
-        assertEquals(265.0,pizza.getTotalPrice(),0);
+        assertEquals(Crust.STUFFED,pizza.getCrust());
+        assertEquals(45.0,pizza.getTotalPrice(),0);
     }
 }
