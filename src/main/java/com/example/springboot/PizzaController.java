@@ -1,9 +1,6 @@
 package com.example.springboot;
 
-import com.example.springboot.classes.Item;
-import com.example.springboot.classes.Menu;
-import com.example.springboot.classes.OrderManager;
-import com.example.springboot.classes.Size;
+import com.example.springboot.classes.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -29,19 +26,19 @@ public class PizzaController {
 
 	 @GetMapping("/beverages/{name}")
 	 public String getBeverage(@PathVariable String name) {
-		Item item = this.menu.getBeverage(name);
+		Item item = this.menu.getItem(name, MenuItem.BEVERAGE);
 		 return this.getItemNameAndPrice(item);
 	 }
 
 	@GetMapping("/appetizer/{name}")
 	public String getAppetizer(@PathVariable String name) {
-		Item item = this.menu.getAppetizer(name);
+		Item item = this.menu.getItem(name, MenuItem.APPETIZER);
 		return this.getItemNameAndPrice(item);
 	}
 
 	@GetMapping("/pizza/{name}")
 	public String getPizza(@PathVariable String name) {
-		Item item = this.menu.getPizza(name);
+		Item item = this.menu.getItem(name, MenuItem.PIZZA);
 		return this.getItemNameAndPrice(item);
 	}
 
@@ -60,9 +57,14 @@ public class PizzaController {
 		for (Map.Entry<String, Object> entry : payload.entrySet()) {
 			String itemName = entry.getKey();
 			Object details = entry.getValue();
+			LinkedHashMap detailsMap = ((LinkedHashMap) details);
 
-			//	Handle setting the size
-			String size = (String) ((LinkedHashMap) details).get("size");
+			// Get the item
+			Item item = (Item) this.menu.getItem(itemName);
+			if(item == null) return "Invalid Order: No " + itemName + " available";
+
+			//	Set the size
+			String size = (String) detailsMap.get("size");
 			Size sizeEnum;
 			switch (size.toLowerCase()) {
 				case "small":
@@ -77,11 +79,10 @@ public class PizzaController {
 					break;
 
 			}
-			Item item = this.menu.getItem(itemName);
 			item.setSize(sizeEnum);
 
-			// Grab the quantity
-			Integer quantity = (Integer) ((LinkedHashMap) details).get("quantity");
+			// Set the quantity, default to 1
+			Integer quantity = (Integer) detailsMap.getOrDefault("quantity", 1);
 			if (item != null) {
 				this.orderManager.addItem(item, quantity);
 			} else {
