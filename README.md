@@ -57,12 +57,36 @@ Crust.class
 This enum class helps us choose any crust needed (Thin/Stuffed)
 
 ```
-## Execution
-
+## Execution/Testing Plan
 ```
-Add the execution bit here
+ 1. Run the server by running gradlew bootRun in the terminal 
+ 2. See the menu by calling /menu
+ 3. See a specific item by calling /beverage/pepsi
+ 4. See a specific pizza by calling /beverage/classicCheese
+ 5. Order by passing in your desired items with the size and quantity
+
+
+
+ ```
+curl --location --request GET 'http://localhost:8080/menu'
+```
+ ```
+curl --location --request GET 'http://localhost:8080/beverages/pepsi'
+```
+ ```
+curl --location --request GET 'http://localhost:8080/pizza/classicCheese'
+```
+ ```
+curl --location --request POST 'http://localhost:8080/order' \
+--header 'Content-Type: application/json' \
+--data-raw '{"classicCheese": {"quantity": 1, "size": "large"}, "salad": {"quantity": 1, "size": "large"}}'
+```
+---
 ```
 
 ## UML/Design Diagram
 
-Added as part of the submissions 
+Added as part of the submissions
+
+
+```

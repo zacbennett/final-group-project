@@ -14,10 +14,11 @@ public class Menu {
         this.items.put("coke", new Beverage("Coke", 1.99));
         this.items.put("breadsticks", new Appetizer("Bread Sticks", 5.00));
         this.items.put("salad", new Appetizer("Salad", 7.50));
+        this.items.put("classicCheese", new PizzaBuilder().pizzaCrust(Crust.STUFFED).pizzaName("Classic Cheese").pizzaPrice(12).build());
+        this.items.put("spicyPizza", new PizzaBuilder().pizzaCrust(Crust.THIN).pizzaName("Spicy Pizza").pizzaTopping(Topping.JALAPENOS).pizzaPrice(15).build());
 
     }
 
-    // toString function: get all of the menu items as a string
     public String printMenu() {
         String menuString = "";
         for (Map.Entry<String,Item> entry : this.items.entrySet()) {
@@ -42,6 +43,17 @@ public class Menu {
         Boolean itemExists = this.items.containsKey(name);
         Boolean isAppetizer = this.items.get(name) instanceof Appetizer;
         if(itemExists && isAppetizer) {
+            return this.items.get(name);
+        } else {
+            return null;
+        }
+    }
+
+    public Item getPizza(String name) {
+        // check that the item exists and is a appetizer
+        Boolean itemExists = this.items.containsKey(name);
+        Boolean isPizza = this.items.get(name) instanceof Pizza;
+        if(itemExists && isPizza) {
             return this.items.get(name);
         } else {
             return null;

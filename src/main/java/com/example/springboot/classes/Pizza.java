@@ -1,8 +1,10 @@
 package com.example.springboot.classes;
 import com.example.springboot.classes.Item;
+import com.example.springboot.classes.*;
+import com.example.springboot.classes.Size;
 
 
-public class Pizza {
+public class Pizza extends Item {
  
     private float totalPrice = 0;
 
@@ -10,7 +12,13 @@ public class Pizza {
     private Topping topping;
     private Crust crust;
     private Cheese cheese;
- 
+
+    public Pizza(String name, double price, Topping topping, Crust crust) {
+        super(name, price);
+        this.topping = topping;
+        this.crust = crust;
+    }
+
     public Size getSize() {
         return size;
     }
@@ -53,75 +61,3 @@ public class Pizza {
 }
 
 
-
-public enum Crust {
-    THIN  {
-        public float getCost(){
-            return 3;
-        }
-    },
-    STUFFED{
-        public float getCost(){
-            return 4;
-        }
-    };
- 
-    public abstract float getCost();
-}
-
-public enum Size {
-    SMALL {
-        public float getCost() {
-            return 15;
-        }
-    },
-    MEDIUM {
-        public float getCost() {
-            return 20;
-        }
-    },
-    LARGE {
-        public float getCost() {
-            return 25;
-        }
-    };
- 
-    public abstract float getCost();
-}
-
-public enum Topping {
-
-    PINEAPPLE {
-        public float getCost(){
-            return 4;
-        }
-    }, 
-    JALAPENOS{
-        public float getCost(){
-            return 3;
-        }
-    }, 
-    ONIONS{
-        public float getCost(){
-            return 4;
-        }
-    };
- 
-    public abstract float getCost();
-}
-
-public enum Cheese {
-    AMERICAN {
-        public float getCost() {
-            return 5;
-        }
-    },
-    CHEDDAR {
-        public float getCost() {
-            return 5;
-        }
-    };
- 
-    public abstract float getCost();
- 
-}
